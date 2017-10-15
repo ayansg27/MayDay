@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</head>
+<body style="background-image: url({{ url_for('static', filename='img/background.jpg') }});background-size:100%100vh; background-repeat: no-repeat;overflow-x:hidden;">
+    <div class="" style="">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="" alt="" align="center">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                {% if session_user_name %}
+                    <p>Hello <b>{{ session_user_name }}</b></p>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<div class="container" style="" align="center">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-5 col-md-offset-5 rounded loginformback" style="height:20rem; padding-top: 1rem;">
+                {% if nowstate %}
+                <h3 class="text-primary">We have captured your information. You will hear back at the earliest possible</h3>
+                {% else %}
+                <form action="" method="POST" style="padding-top:1rem">
+                    <h3 class="text-primary">What do you need help with?</h3>
+                    <div class="input-group" style="padding-top:1rem">
+                        <select name="type" class="form-control">
+                            <option value="hurricane">Hurricane</option>
+                            <option value="earthquake">Earthquake</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Description</span>
+                        <input type="text" class="form-control" id="desc" name="desc" aria-describedby="basic-addon3">
+                    </div>
+                    <br>
+                    <input type="Submit" value="Help" class="btn btn-info">
+                </form>
+                <br>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
