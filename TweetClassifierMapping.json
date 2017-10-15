@@ -1,0 +1,11 @@
+[
+    {"text": "Happy to help", "label": "pos"},
+    {"text": "Let me know if you need anything", "label": "pos"},
+    {"text": "Let me know", "label": "pos"},
+	{"text": "Want to help", "label": "pos"},
+    {"text": "Want to volunteer", "label": "pos"},
+    {"text": "Reach out to me", "label": "pos"},
+	{"text": "Available to help", "label": "pos"},
+    {"text": "God be with you", "label": "neg"},
+    {"text": "Take care", "label": "neg"}
+]

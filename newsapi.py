@@ -13,6 +13,22 @@ url = 'https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=4339258eb6b7
 #connect to db
 client=MongoClient('localhost',27017)
 db=client.mayday
+#insert keywords
+result=db.keywords.insert([
+    {
+        "keyword":"earthquake"
+    },
+    {
+        "keyword":"hurricane"
+    },
+    {
+        "keyword":"checkNeil"
+    },
+    {
+        "keyword":"checkAyan"
+    }
+])
+
 
 try:
     request = Request(url)
