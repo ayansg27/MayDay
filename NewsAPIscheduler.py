@@ -7,5 +7,5 @@ def newsapijob():
 
 
 scheduler= BlockingScheduler()
-scheduler.add_job(newsapijob,'interval',seconds=600)
+scheduler.add_job(newsapijob,'interval',seconds=10)
 scheduler.start()
