@@ -14,9 +14,14 @@ try:
     response = urlopen(request)
     newsText = response.read()
     newsText = json.loads(newsText)
-    print newsText
-    # f = open('output.txt', 'w')
-    # f.write(json.dumps(newsText, indent=4, sort_keys=True))
-    # f.close()
+    f = open('output.txt', 'w')
+    for article in newsText["articles"]:
+        print article["description"]
+        print article["title"]
+        f.write(json.dumps(article["description"], article["title"]))
+        print "\n\n\n"
+        #f.write(json.dumps(article))
+    #f.write(json.dumps(newsText["articles"], indent=4, sort_keys=True))
+    f.close()
 except URLError, e:
     print 'Error reading news API'
