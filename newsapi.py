@@ -14,14 +14,12 @@ try:
     response = urlopen(request)
     newsText = response.read()
     newsText = json.loads(newsText)
-    f = open('output.txt', 'w')
     for article in newsText["articles"]:
-        print article["description"]
-        print article["title"]
-        f.write(json.dumps(article["description"], article["title"]))
-        print "\n\n\n"
-        #f.write(json.dumps(article))
-    #f.write(json.dumps(newsText["articles"], indent=4, sort_keys=True))
-    f.close()
+        if "hurricane" in article["description"].lower() or "hurricane" in article["title"].lower():
+            # create hurricane event if not exists
+            pass
+        if "earthquake" in article["description"].lower() or "earthquake" in article["title"].lower():
+            # create earthquake event if not exists
+            pass
 except URLError, e:
     print 'Error reading news API'
