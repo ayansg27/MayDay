@@ -7,10 +7,10 @@ from pymongo import MongoClient
 from textblob.classifiers import NaiveBayesClassifier
 
 
-customer_key='OBBc9El0RrFsTGAJV2g7f0czx'
-customer_secret='Mep0j3NOOP9RhUdWogog5d1bdPpAe5hb8FlzHecpL1HzaXPfN8'
-access_token='564713359-QDvMIwBFIeEv12GWtzwQzNp2bdyyZeUF4q100DRW'
-access_secret='khGMQDGwEm9HG9aWWvEJvFpEXVFPxVtM3AOxFMcrB5nm6'
+customer_key=''
+customer_secret=''
+access_token=''
+access_secret=''
 
 
 class listener(StreamListener):
