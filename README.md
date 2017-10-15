@@ -1,6 +1,8 @@
 # MayDay
 ## As part of HackRU  
-Function: this app allows people in catastrophic situations to call for help and receive information about volunteers near them through SMS.   
-Description: a script keeps a tab on current catastrophes. When users hit on the help button, his location maps him to a catastrophy. Tweets about this catastrophe are analysed and people in the area willing to help are sent a confirmation request message. Once they confirm, their location is mapped to current catastrophies and they receive a list of contact information for that specific location who they can reach out to for help.
 
-Implemented using: python mongodb twitter-api mapsapi twilio-api
+This application lets victims stuck in catastrophic situations ask for help. We monitor tweets in real time to identify people who are actively willing to help, and replies on their tweets asking them if they would like to volunteer. The volunteers who sign up provide their phone and contact information, and this list of volunteer information is sent to the victims, but only those volunteers who are in a 5 mile proximity are chosen as relevant to the victims. 
+
+Uses newsapi.org API to monitor news for catastrophes; Twitter API to monitor tweets, identify relevant ones and reply to them asking for volunteer signup; Twilio API to send text message notifications to victims. 
+
+Collaborators: Ayan Sengupta, Neil Matin
