@@ -1,9 +1,11 @@
+import tweepy
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from textblob import TextBlob
 from pymongo import MongoClient
 from textblob.classifiers import NaiveBayesClassifier
+
 
 customer_key='OBBc9El0RrFsTGAJV2g7f0czx'
 customer_secret='Mep0j3NOOP9RhUdWogog5d1bdPpAe5hb8FlzHecpL1HzaXPfN8'
@@ -31,6 +33,20 @@ class listener(StreamListener):
         wiki=TextBlob(status.text)
         for word in wiki.words:
             if word in keywords and cl.classify(status.text)=='pos':
+                # retweet
+                username = status.user.screen_name
+                status_id = status.id
+                cfg = {
+                    "consumer_key": customer_key,
+                    "consumer_secret": customer_secret,
+                    "access_token": access_token,
+                    "access_token_secret": access_secret
+                }
+                api = get_api(cfg)
+                tweet = "@%s Hello!" % (username)
+                tweet += "\nWould you like to volunteer for the victims? Email me your contact information at xxx.xxx@xxx!"
+                status = api.update_status(tweet, status_id)
+                # add to db
                 event=""
                 if "hurricane" in keywords:
                     event="hurricane"
@@ -44,6 +60,25 @@ class listener(StreamListener):
     def on_error(self, status):
         print status
 
+
+def get_api(cfg):
+    auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
+    auth.set_access_token(cfg['access_token'], cfg['access_token_secret'])
+    return tweepy.API(auth)
+
+
+# def retweet(username, status_id):
+#     cfg = {
+#         "consumer_key": customer_key,
+#         "consumer_secret": customer_secret,
+#         "access_token": access_token,
+#         "access_token_secret": access_secret
+#     }
+#     api = get_api(cfg)
+#     tweet = "@%s Hello!" % (username)
+#     tweet += "Hey, would you like to volunteer for the victims? Email me at xxx.xxx@xxx!"
+#     #status = api.update_status(status=tweet, status_id)
+#     status = api.update_status(tweet, status_id)
 
 
 def main():
