@@ -1,18 +1,11 @@
-import datetime
-import time
-
+import subprocess
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 
-def hourlyjob():
-    print('running hourly job')
-
-
-def secondjob():
-    print('This job is run every 10 seconds.')
+def newsapijob():
+    subprocess.Popen(['C:\\python27\\python.exe', 'newsapi.py'])
 
 
 scheduler= BlockingScheduler()
-scheduler.add_job(hourlyjob,'interval',hours=1)
-scheduler.add_job(secondjob,'interval',seconds=10)
+scheduler.add_job(newsapijob,'interval',seconds=600)
 scheduler.start()
