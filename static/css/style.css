@@ -1,0 +1,12 @@
+.loginformback {
+    background-color: #e3e3e3;
+}
+.loginformpadtop {
+    padding-top: 3rem;
+}
+.label{
+    width: 3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
