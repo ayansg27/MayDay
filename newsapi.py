@@ -1,12 +1,18 @@
 # API Key: 4339258eb6b74848aabec09a921e47c0
 
-import requests
+#import requests
+from datetime import datetime, timedelta
+from pymongo import MongoClient
 import json
 
 from urllib2 import Request, urlopen, URLError
 
 url = 'https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=4339258eb6b74848aabec09a921e47c0'
 # run for multiple sources
+
+#connect to db
+client=MongoClient('localhost',27017)
+db=client.mayday
 
 try:
     request = Request(url)
@@ -16,9 +22,51 @@ try:
     for article in newsText["articles"]:
         if "hurricane" in article["description"].lower() or "hurricane" in article["title"].lower():
             # create hurricane event if not exists
-            pass
+            hrdt = datetime.now() - timedelta(hours=72)
+            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": hrdt}}).count()>0:
+                pass
+            else:
+                result=db.events.insert_one(
+                    {
+                        "title":"hurricane",
+                        "timestamp":datetime.now(),
+                        "source":"news",
+                        "volunteers":[],
+                        "victims":[],
+                        "volunteercount":0,
+                        "victimcount":0
+                    }
+                )
+                db.event_ids.insert_one(
+                    {
+                        "id":result.inserted_id,
+                        "category":"hurricane"
+                    }
+                )
+
         if "earthquake" in article["description"].lower() or "earthquake" in article["title"].lower():
             # create earthquake event if not exists
-            pass
-except URLError, e:
-    print 'Error reading news API'
+            eqdt = datetime.now() - timedelta(hours=24)
+            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": eqdt}}).count()>0:
+                pass
+            else:
+                result = db.events.insert_one(
+                    {
+                        "title": "earthquake",
+                        "timestamp": datetime.now(),
+                        "source": "news",
+                        "volunteers": [],
+                        "victims": [],
+                        "volunteercount": 0,
+                        "victimcount": 0
+                    }
+                )
+                db.event_ids.insert_one(
+                    {
+                        "id": result.inserted_id,
+                        "category": "hurricane"
+                    }
+                )
+
+except URLError:
+    print ('Error reading news API')
