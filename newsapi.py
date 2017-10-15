@@ -19,11 +19,12 @@ try:
     response = urlopen(request)
     newsText = response.read()
     newsText = json.loads(newsText)
+    print newsText
     for article in newsText["articles"]:
         if "hurricane" in article["description"].lower() or "hurricane" in article["title"].lower():
             # create hurricane event if not exists
             hrdt = datetime.now() - timedelta(hours=72)
-            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": hrdt}}).count()>0:
+            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": hrdt}}):
                 pass
             else:
                 result=db.events.insert_one(
@@ -47,7 +48,7 @@ try:
         if "earthquake" in article["description"].lower() or "earthquake" in article["title"].lower():
             # create earthquake event if not exists
             eqdt = datetime.now() - timedelta(hours=24)
-            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": eqdt}}).count()>0:
+            if db.events.find_one({"is_valid": "True", "timestamp": {"$gt": eqdt}}):
                 pass
             else:
                 result = db.events.insert_one(
