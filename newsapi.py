@@ -9,7 +9,6 @@ url = 'https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=4339258eb6b7
 # run for multiple sources
 
 try:
-    newsText = json.dumps('{}')
     request = Request(url)
     response = urlopen(request)
     newsText = response.read()
